@@ -1,0 +1,52 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Django Migrations
+**/migrations/
+!**/migrations/__init__.py
+
+# Environment variables
+.env
+.env.*
+
+# Virtual Environments
+venv/
+env/
+.venv/
+.envrc
+
+# VSCode and other IDEs
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# Byte-compiled / cache files
+*.log
+*.pot
+*.pyc
+*.pyo
+
+# macOS
+.DS_Store
+
+# Windows
+Thumbs.db
+ehthumbs.db
+desktop.ini
+
+# Database
+*.sqlite3
+
+# Node stuff (if using React frontend)
+node_modules/
+build/
+dist/
+
+# Local settings
+local_settings.py
+
+# Postgres dump files
+*.sql
