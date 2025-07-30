@@ -6,7 +6,7 @@ from django.contrib.auth import authenticate
 from .serializers import RegisterSerializer, LoginSerializer
 from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework.permissions import AllowAny, IsAuthenticated
-from .models import VerificationCode, CustomUser
+from .models import VerificationCode, Employee
 
 # user/views.py
 class RegisterView(APIView):

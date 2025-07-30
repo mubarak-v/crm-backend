@@ -7,14 +7,23 @@ User = get_user_model()
 
 class RegisterSerializer(serializers.ModelSerializer):
     password = serializers.CharField(write_only=True)
+    employee_type = serializers.ChoiceField(
+        choices=User.EmployeeType.choices,
+        default=User.EmployeeType.LEADS,
+        help_text="Type of employee access level"
+    )
 
     class Meta:
         model = User
-        fields = ['username', 'email', 'password', 'first_name', 'last_name', 'phone_number', 'industry_type', 'country']
+        fields = [
+            'username', 'email', 'password', 'first_name', 'last_name',
+            'phone_number', 'industry_type', 'country', 'employee_type'
+        ]
         extra_kwargs = {
             'first_name': {'required': True},
             'last_name': {'required': True},
-            'email': {'required': True}
+            'email': {'required': True},
+            'employee_type': {'required': True}
         }
 
     def create(self, validated_data):
@@ -27,6 +36,8 @@ class RegisterSerializer(serializers.ModelSerializer):
             phone_number=validated_data.get('phone_number'),
             industry_type=validated_data.get('industry_type'),
             country=validated_data.get('country'),
+            employee_type=validated_data.get('employee_type', User.EmployeeType.ALL),
+
         )
         return user
 

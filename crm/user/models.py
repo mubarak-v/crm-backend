@@ -5,18 +5,31 @@ from django.db import models
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 
-class CustomUser(AbstractUser):
+class Employee(AbstractUser):
+    class EmployeeType(models.TextChoices):
+        LEADS = 'leads', _('Leads')
+        DEALS = 'deals', _('Deals')
+        COMPANIES = 'companies', _('Companies')
+        TICKETS = 'tickets', _('Tickets')
+        ALL = 'all', _('All')
+    
     email = models.EmailField(_('email address'), unique=True)
     phone_number = models.CharField(max_length=20, blank=True, null=True)
     industry_type = models.CharField(max_length=100, blank=True, null=True)
     country = models.CharField(max_length=100, blank=True, null=True)
+    employee_type = models.CharField(
+        max_length=20,
+        choices=EmployeeType.choices,
+        default=EmployeeType.LEADS,
+        help_text=_("Type of employee access level")
+    )
 
-    REQUIRED_FIELDS = ['email', 'first_name', 'last_name']
+    REQUIRED_FIELDS = ['email', 'first_name', 'last_name', 'employee_type']
     # Optional: If you want to login using email, set USERNAME_FIELD = 'email'
     # USERNAME_FIELD = 'email'
 
     def __str__(self):
-        return self.username
+        return f"{self.get_full_name()} ({self.get_employee_type_display()})"
 
 
 class VerificationCode(models.Model):
