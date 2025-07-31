@@ -228,3 +228,4 @@ class UserProfileView(APIView):
             'industry_type': user.industry_type,
             'country': user.country
         })
+        
