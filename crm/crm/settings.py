@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'user',
     'corsheaders',
     'rest_framework',
+    'ticket'
 ]
 # CORS Settings
 CORS_ALLOW_ALL_ORIGINS = False  # Disable wildcard when using credentials
