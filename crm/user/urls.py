@@ -5,7 +5,8 @@ from .views import (
     LoginView,
     GenerateVerificationCodeView,
     VerifyCodeView,
-    UserProfileView
+    UserProfileView,
+    UserListView
 )
 
 urlpatterns = [
@@ -18,7 +19,8 @@ urlpatterns = [
     path('verify-code/', VerifyCodeView.as_view(), name='verify-code'),
     # User profile endpoint
     path('profile/', UserProfileView.as_view(), name='user-profile'),
-    
+    # All users endpoint
+    path('users/', UserListView.as_view(), name='user-list'),
 ]
      
 

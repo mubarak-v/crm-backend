@@ -229,3 +229,20 @@ class UserProfileView(APIView):
             'country': user.country
         })
         
+
+class UserListView(APIView):
+    """
+    API to get all registered users' data (admin use).
+    GET /api/user/all/
+    Requires authentication and staff/admin rights (customize as needed).
+    """
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        # Optionally, restrict to admin users only:
+        # if not request.user.is_staff:
+        #     return Response({'detail': 'Not authorized.'}, status=403)
+        from .serializers import UserListSerializer
+        users = Employee.objects.all()
+        serializer = UserListSerializer(users, many=True)
+        return Response(serializer.data)
