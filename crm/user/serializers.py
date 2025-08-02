@@ -46,3 +46,11 @@ class LoginSerializer(serializers.Serializer):
     password = serializers.CharField()
 
 
+class UserListSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = [
+            'id', 'username', 'email', 'first_name', 'last_name',
+            'phone_number', 'industry_type', 'country', 'employee_type'
+        ]
+

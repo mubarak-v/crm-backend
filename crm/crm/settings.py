@@ -13,6 +13,8 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 from pathlib import Path
 from decouple import config
 
+from datetime import timedelta
+
 from dotenv import load_dotenv
 import os
 load_dotenv()
@@ -123,6 +125,7 @@ DATABASES = {
         'PORT': config('DB_PORT'),
     }
 }
+# Django REST Framework & JWT Authentication
 REST_FRAMEWORK = {
     'DEFAULT_RENDERER_CLASSES': [
         'rest_framework.renderers.JSONRenderer',
@@ -132,6 +135,16 @@ REST_FRAMEWORK = {
     ],
 }
 
+# SimpleJWT configuration for access/refresh token lifetimes
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(days=30),  # Change 30 to your preferred duration
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=30),
+    # ... add other JWT settings as needed
+}
+from rest_framework_simplejwt.settings import api_settings
+
+print(f"Access Token Lifetime: {api_settings.ACCESS_TOKEN_LIFETIME}")
+print(f"Refresh Token Lifetime: {api_settings.REFRESH_TOKEN_LIFETIME}")
 
 
 # Password validation
