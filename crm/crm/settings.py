@@ -13,6 +13,13 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 from pathlib import Path
 from decouple import config
 
+from datetime import timedelta
+from dotenv import load_dotenv
+import os
+load_dotenv()
+
+
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -38,6 +45,38 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'user',
+    'corsheaders',
+    'rest_framework',
+    'ticket'
+]
+# CORS Settings
+CORS_ALLOW_ALL_ORIGINS = False  # Disable wildcard when using credentials
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:3000",  # Your frontend URL
+]
+CORS_ALLOW_CREDENTIALS = True  # Allow credentials (cookies, HTTP authentication)
+
+# Allow specific headers and methods
+CORS_ALLOW_HEADERS = [
+    'accept',
+    'accept-encoding',
+    'authorization',
+    'content-type',
+    'dnt',
+    'origin',
+    'user-agent',
+    'x-csrftoken',
+    'x-requested-with',
+]
+
+CORS_ALLOW_METHODS = [
+    'DELETE',
+    'GET',
+    'OPTIONS',
+    'PATCH',
+    'POST',
+    'PUT',
 ]
 
 MIDDLEWARE = [
@@ -48,6 +87,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+     'corsheaders.middleware.CorsMiddleware',
+    'django.middleware.common.CommonMiddleware',
 ]
 
 ROOT_URLCONF = 'crm.urls'
@@ -83,6 +124,26 @@ DATABASES = {
         'PORT': config('DB_PORT'),
     }
 }
+# Django REST Framework & JWT Authentication
+REST_FRAMEWORK = {
+    'DEFAULT_RENDERER_CLASSES': [
+        'rest_framework.renderers.JSONRenderer',
+    ],
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ],
+}
+
+# SimpleJWT configuration for access/refresh token lifetimes
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(days=30),  # Change 30 to your preferred duration
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=30),
+    # ... add other JWT settings as needed
+}
+
+
+
+
 
 # Password validation
 # https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators
@@ -124,3 +185,7 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+# Custom user model
+AUTH_USER_MODEL = 'user.Employee'
