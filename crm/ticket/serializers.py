@@ -7,8 +7,8 @@ User = get_user_model()
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ['id', 'username', 'email']
-        read_only_fields = ['id', 'username', 'email']
+        fields = ['id', 'username', 'email','first_name','last_name','phone_number']
+        read_only_fields = ['id', 'username', 'email','first_name','last_name','phone_number']
 
 class TicketSerializer(serializers.ModelSerializer):
     owner = UserSerializer(read_only=True)

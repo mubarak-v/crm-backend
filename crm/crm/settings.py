@@ -14,7 +14,6 @@ from pathlib import Path
 from decouple import config
 
 from datetime import timedelta
-
 from dotenv import load_dotenv
 import os
 load_dotenv()
@@ -141,10 +140,9 @@ SIMPLE_JWT = {
     'REFRESH_TOKEN_LIFETIME': timedelta(days=30),
     # ... add other JWT settings as needed
 }
-from rest_framework_simplejwt.settings import api_settings
 
-print(f"Access Token Lifetime: {api_settings.ACCESS_TOKEN_LIFETIME}")
-print(f"Refresh Token Lifetime: {api_settings.REFRESH_TOKEN_LIFETIME}")
+
+
 
 
 # Password validation
